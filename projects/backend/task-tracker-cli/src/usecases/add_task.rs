@@ -10,7 +10,7 @@ pub struct Input {
     pub description: String,
 }
 
-pub fn add_task(id_generator: &mut impl IdGenerator, input: Input) -> Task {
+pub fn execute(id_generator: &mut impl IdGenerator, input: Input) -> Task {
     let now = Utc::now();
     let next_id = id_generator.next_id();
     Task::new(Id(next_id), input.description, Status::Todo, now, now)
@@ -32,7 +32,7 @@ mod tests {
     fn add_a_new_task() {
         let mut id_gen = make_id_gen();
 
-        let task = add_task(
+        let task = execute(
             &mut id_gen,
             Input {
                 description: "A new task".to_string(),
