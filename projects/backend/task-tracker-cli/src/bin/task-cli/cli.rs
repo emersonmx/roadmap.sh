@@ -1,17 +1,11 @@
-use clap::{Parser, Subcommand};
+use clap::Parser;
 
 #[derive(Parser, Debug)]
 #[command(name = "task-cli", about = "A simple task tracker")]
-pub struct Cli {
-    #[command(subcommand)]
-    command: Command,
-}
-
-#[derive(Subcommand, Debug)]
-enum Command {
-    Add {
-        description: String,
-    },
+pub enum Cli {
+    /// Add a new task
+    Add { description: String },
+    /// List tasks
     List {
         #[arg(value_parser = ["done", "todo", "in-progress"])]
         status: Option<String>,
